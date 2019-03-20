@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.sdk.dao.GameDAO">
+
+        <select id="getAllGame" resultType="Game">
+            select ID,CP_ID cpId,VERSION,REPAIR_STATUS repairStatus ,REPAIR_CONTENT repairContent
+            from GAME where status=1
+        </select>
+</mapper>
+    

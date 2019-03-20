@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.sdk.dao.UserDAO">
+
+    <!--Integer getUserIdByName(String name);
+
+    User getUserById(Integer id);-->
+
+    <select id="getUserIdByName" parameterType="String" resultType="int">
+        select USER_ID from USER_NAME
+        where NAME=#{name}
+    </select>
+
+    <select id="getUserById" parameterType="int" resultType="User">
+        select ID,PASSWORD,STATUS,USER_TYPE userType
+        from USER where ID=#{id}
+    </select>
+
+    <insert id="addUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into USER(NAME,NUM,PASSWORD,STATUS,USER_TYPE,REGIST_DATE)
+        values(#{name},#{num},#{password},1,1,now())
+    </insert>
+
+    <insert id="addUserName" parameterType="User">
+        insert into USER_NAME(NAME,USER_ID)VALUES (#{name},#{id})
+    </insert>
+    <insert id="addUserNum" parameterType="User">
+        insert into USER_NUM(NUM,USER_ID)VALUES (#{num},#{id})
+    </insert>
+
+    <insert id="addNumCode">
+        insert into USER_NUM_VERIFY(NUM,CODE,CREATED_DATE)
+                VALUES (#{num},#{code},now())
+    </insert>
+
+    <select id="getUserIdByNum" parameterType="String" resultType="int">
+        select USER_ID from USER_NUM
+        where NUM=#{num}
+    </select>
+    
+    <select id="getNumCode" parameterType="String" resultType="NumCode">
+        select CODE,CREATED_DATE createdDate from user_num_verify
+        where num=#{num}
+    </select>
+
+    <delete id="deleteCodeByNum" parameterType="String">
+      delete   from user_num_verify
+        where num=#{num}
+    </delete>
+</mapper>
+    

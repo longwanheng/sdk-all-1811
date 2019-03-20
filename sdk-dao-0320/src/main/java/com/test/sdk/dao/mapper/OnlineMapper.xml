@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.sdk.dao.OnlineDAO">
+    <insert id="addOnlineUser" parameterType="OnlineUser">
+        insert into ONLINE_USER(TICKET,USER_ID,LAST_ACT,LOGIN_DATE,LOGIN_ACCOUNT)
+                values(#{ticket},#{userId},now(),now(),#{account})
+    </insert>
+
+    <delete id="deleteTicketByUserId" parameterType="int">
+        delete from ONLINE_USER where USER_ID=#{userId}
+    </delete>
+
+    <update id="updateLastAct" parameterType="String">
+        update ONLINE_USER set LAST_ACT=now() where TICKET=#{ticket}
+    </update>
+
+    <select id="getOnlineUser" parameterType="String" resultType="OnlineUser">
+        select USER_ID userId,LAST_ACT lastAct from ONLINE_USER
+        where TICKET=#{ticket}
+    </select>
+</mapper>
+    

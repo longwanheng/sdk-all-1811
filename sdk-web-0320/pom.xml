@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>sdk-all-1811</artifactId>
+		<groupId>com.test.sdk</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>sdk-web-0320</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>sdk-web-0320</name>
+	<description>Demo project for Spring Boot</description>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.test.sdk</groupId>
+			<artifactId>sdk-interface-0320</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.boot</groupId>
+			<artifactId>dubbo-spring-boot-starter</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+	</build>
+
+</project>
