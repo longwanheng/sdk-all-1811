@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/data-interface-0321/data-interface-0321.iml" filepath="$PROJECT_DIR$/data-interface-0321/data-interface-0321.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-admin-0321/sdk-admin-0321.iml" filepath="$PROJECT_DIR$/sdk-admin-0321/sdk-admin-0321.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-all-1811.iml" filepath="$PROJECT_DIR$/sdk-all-1811.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-common-0320/sdk-common-0320.iml" filepath="$PROJECT_DIR$/sdk-common-0320/sdk-common-0320.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-dao-0320/sdk-dao-0320.iml" filepath="$PROJECT_DIR$/sdk-dao-0320/sdk-dao-0320.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-interface-0320/sdk-interface-0320.iml" filepath="$PROJECT_DIR$/sdk-interface-0320/sdk-interface-0320.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-script-0321/sdk-script-0321.iml" filepath="$PROJECT_DIR$/sdk-script-0321/sdk-script-0321.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-service-0320/sdk-service-0320.iml" filepath="$PROJECT_DIR$/sdk-service-0320/sdk-service-0320.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-web-0320/sdk-web-0320.iml" filepath="$PROJECT_DIR$/sdk-web-0320/sdk-web-0320.iml" />
+    </modules>
+  </component>
+</project>

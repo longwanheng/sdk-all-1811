@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/data-interface-0321" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sdk-admin-0321" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sdk-common-0320" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sdk-dao-0320" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sdk-interface-0320" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sdk-script-0321" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sdk-service-0320" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/sdk-web-0320" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

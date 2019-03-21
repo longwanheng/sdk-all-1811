@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.sdk.script.dao.GameDataDAO">
+
+    <select id="getGameRegistData" resultType="RegistData">
+        select game_id gameId,count(user_id) userAmount,PROMOTION_CHANNEL_ID channelId
+        from game_regist_log
+        where game_id=#{gameId} and  CREATED_DATE &gt;=#{start} and CREATED_DATE &lt;#{end}
+        group by PROMOTION_CHANNEL_ID
+    </select>
+
+    <insert id="insertGameRegistData" parameterType="RegistData">
+        insert into days_register_user_stat(GAME_ID,PROMOTION_CHANNEL_ID,USER_AMOUNT,CREATED_DATE)
+        VALUES (#{gameId},#{channelId},#{userAmount},#{date})
+    </insert>
+</mapper>
+    

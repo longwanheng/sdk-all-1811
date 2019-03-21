@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="data-interface-0321" />
+        <module name="sdk-admin-0321" />
+        <module name="sdk-common-0320" />
+        <module name="sdk-dao-0320" />
+        <module name="sdk-interface-0320" />
+        <module name="sdk-script-0321" />
+        <module name="sdk-service-0320" />
+        <module name="sdk-web-0320" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="data-interface-0321" target="1.8" />
+      <module name="sdk-admin-0321" target="1.8" />
+      <module name="sdk-all-1811" target="1.8" />
+      <module name="sdk-common-0320" target="1.8" />
+      <module name="sdk-dao-0320" target="1.8" />
+      <module name="sdk-interface-0320" target="1.8" />
+      <module name="sdk-script-0321" target="1.8" />
+      <module name="sdk-service-0320" target="1.8" />
+      <module name="sdk-web-0320" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

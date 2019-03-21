@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<form action="#" id="user-search-form" class="layui-form">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label>名称:</label>
+            <div class="layui-inline">
+                <input type="text" name="realName" autocomplete="off" placeholder="请输入名称" class="layui-input">
+            </div>
+            邮箱:<div class="layui-inline">
+            <input type="text" name="email" autocomplete="off" placeholder="请输入email" class="layui-input">
+        </div>
+            状态:<div class="layui-inline">
+            <select name="status" lay-filter="user-status">
+                <option value="">请选择</option>
+                <option value="0">无效</option>
+                <option value="1">有效</option>
+            </select>
+        </div>
+            <div class="layui-inline">
+                <button class="layui-btn" lay-submit lay-filter="search-admin">搜索</button>
+            </div>
+        </div>
+    </div>
+</form>
+<table class="layui-table" lay-filter="adminuser-table" id="adminuser-table">
+</table>
+<script type="text/html" id="user-row-bar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit-adminuser">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del-adminuser">删除</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="assign-role">授权</a>
+</script>
+<script type="text/html" id="role-tree-layer">
+    <ul id="role-tree">
+    </ul>
+</script>
+<script th:inline="none">
+
+    layui.use(['table', 'form','layer'], function () {
+        var form = layui.form;
+        form.render();
+        var table = layui.table;
+        var layer=layui.layer;
+        table.render({
+            id: "adminuser-table",
+            elem: '#adminuser-table'
+            , cellMinWidth: 80
+            , url: 'adminuser.html?act=table' //数据接口
+            , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: ['prev', 'page', 'next', 'count', 'skip', 'limit'] //自定义分页布局
+                //,curr: 5 //设定初始在第 5 页
+                , groups: 5 //只显示 1 个连续页码
+                , first: false //不显示首页
+                , last: false //不显示尾页,
+                , limits: [5, 10, 15, 20, 25, 30]
+                , limit: 5
+
+            }
+            , cols: [[ //表头
+                {field: 'id', title: 'ID', sort: true, fixed: 'left', width: 80}
+                , {field: 'email', title: '邮箱'}
+                , {field: 'realName', title: '姓名'}
+                , {
+                    field: 'status', title: '状态', templet: function (data) {
+                        return (data.status == 1) ? '<span class="layui-badge layui-bg-green">有效</span>' : '<span class="layui-badge layui-bg-red" >无效</span>'
+                    }
+                }, {fixed: 'right', title: '操作', toolbar: '#user-row-bar'}
+            ]]
+        });
+        //监听行工具事件
+        table.on('tool(adminuser-table)', function (obj) {
+            var data = obj.data;
+            switch (obj.event) {
+                case 'del-adminuser': {
+                    layer.confirm('真的删除行么', function (index) {
+                        $.ajax({
+                            url: 'adminuser.html?act=del',
+                            data: "id=" + data.id,
+                            method: 'post',
+                            success: function (result) {
+                                if (result.status) {
+                                    obj.update({
+                                        status: 0
+                                    })
+                                } else {
+                                    alert(result.message)
+                                }
+                                layer.close(index);
+                            }
+                        })
+                    });
+                    break;
+                }
+                case 'edit-adminuser': {
+//                    layui.use('form', function () {
+//                        openEditWindow();
+//                        var form = layui.form;
+//                        form.val("role-edit-form", {
+//                            "id": data.id,
+//                            "name": data.name // "name": "value"
+//                            , "remark": data.remark
+//                        });
+//
+//                    })
+                    break;
+                }
+                case 'assign-role': {
+                    layer.open({
+                        type: 1,
+                        content: $('#role-tree-layer').html(),
+                        title: '用户授权'
+                        , area: ['400px', '600px'],
+                        btn: ['提交', '取消'] //可以无限个按钮
+                        , yes: function (index, layero) {
+                            var userId = data.id;
+                            var nodes = $('#role-tree').tree('getChecked', ['checked']);
+                            var roleIds = ""
+                            $.each(nodes, function (i, obj) {
+                                roleIds += "&roleIds=" + obj.id
+                            })
+                            $.ajax({
+                                url: 'adminuser.html?act=assign_role',
+                                data: "userId=" + userId + "&" + roleIds,
+                                method: 'post',
+                                success: function (result) {
+                                    if (result.status) {
+                                        layer.close(index);
+                                    } else {
+                                        alert(result.message)
+                                    }
+                                }
+                            })
+                        }
+                    });
+                    $.ajax({
+                        url: 'adminuser.html?act=user_role',
+                        data: "userId=" + data.id,
+                        method: 'post',
+                        success: function (result) {
+                            $("#role-tree").tree({
+                                url: "adminuser.html?act=role_list",
+                                checkbox: true,
+                                formatter: function (node) {
+                                    return node.name;
+                                },
+                                onLoadSuccess: function (node, data) {
+                                    $.each(result, function (i, obj) {
+                                        var node = $('#role-tree').tree('find', obj);
+                                        $('#role-tree').tree('check', node.target);
+                                    })
+                                }
+                            });
+                        }
+                    })
+                    break;
+                }
+            }
+        });
+
+        form.on('submit(search-admin)', function (data) {
+            table.reload('adminuser-table', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                },
+                where: data.field
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+    })
+</script>
+</html>

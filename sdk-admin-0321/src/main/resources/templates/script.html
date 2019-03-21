@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<script type="text/html" id="script-head-bar">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="goEdit"><i class="layui-icon">&#xe654;</i>添加</button>
+    </div>
+</script>
+<script type="text/html" id="script-script-bar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit-script">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit-script">删除</a>
+</script>
+<script type="text/html" id="script-status">
+    <input type="checkbox" id="status" name="status" value="{{d.id}}" lay-skin="switch" lay-text="运行|暂停"
+           lay-filter="status-filter" {{ d.status== 1 ? 'checked' : '' }}>
+</script>
+<table class="layui-table" lay-filter="script-table" id="script-table">
+</table>
+<script type="text/javascript" th:inline="none">
+    layui.use(['table', 'layer', 'form'], function () {
+        var table = layui.table;
+        var layer = layui.layer;
+        var form = layui.form;
+        form.on('switch(status-filter)', function (obj) {
+            var status = obj.elem.checked;
+            $.ajax({
+                url: 'script.html?act=edit',
+                data: "id=" + this.value + "&status=" + (status ? 1 : 0),
+                method: 'post',
+                success: function (result) {
+                    if (result.status) {
+                        layer.tips("修改成功", obj.othis);
+                    } else {
+                        layer.tips(result.message, obj.othis)
+                    }
+                }, error: function () {
+                    layer.tips("修改失败", obj.othis);
+                }
+            })
+            return;
+        });
+        table.render({
+            id: "script-table",
+            elem: '#script-table'
+            , cellMinWidth: 80
+            , url: 'script.html?act=table' //数据接口
+            , cols: [[
+                {field: 'id', title: 'ID', sort: true, fixed: 'left'}
+                , {field: 'name', title: '脚本名称'}
+                , {field: 'description', title: '备注'}
+                , {field: 'cron', title: '表达式'}
+
+                , {
+                    field: 'status', title: '状态', templet: '#script-status'
+                }, {field: 'lastExecuteTime', title: '执行时间'}
+                , {fixed: 'right', title: '操作', toolbar: '#script-script-bar', width: 180}
+            ]]
+        });
+        form.on('switch(status-filter)', function(data){
+            //console.log(data.elem); //得到checkbox原始DOM对象
+            $.ajax({
+                url:"script.html?act=pause",
+                data:"id="+data.value+"&run="+data.elem.checked,
+                method:"post",
+                success:function(json){
+                    layer.msg(json.message)
+                }
+
+            })
+//            console.log(data.elem.checked); //开关是否开启，true或者false
+//            console.log(data.value); //开关value值，也可以通过data.elem.value得到
+        });
+        //头工具栏事件
+        table.on('toolbar(script-table)', function (obj) {
+            switch (obj.event) {
+                case 'goEdit':
+                    openEditWindow();
+                    break;
+            }
+            ;
+        });
+        //监听行工具事件
+        table.on('tool(script-table)', function (obj) {
+            var data = obj.data;
+            switch (obj.event) {
+                case 'edit-script': {
+                    layui.use('form', function () {
+                        openEditWindow();
+                        var form = layui.form;
+                        form.val("script-edit-form", {
+                            "id": data.id,
+                            "name": data.name // "name": "value"
+                            , "remark": data.remark
+                        });
+
+                    })
+                    break;
+                }
+            }
+        });
+
+        function openEditWindow() {
+            layer.open({
+                type: 1,
+                content: $('#script-edit-layer').html(),
+                title: '编辑角色'
+                , area: ['400px', '300px'],
+                btn: ['提交', '取消'] //可以无限个按钮
+                , yes: function (index, layero) {
+                    $.ajax({
+                        url: 'script.html?act=edit',
+                        data: $("#script-edit-form").serialize(),
+                        method: 'post',
+                        success: function (result) {
+                            if (result.status) {
+                                table.reload('script-table', {});
+                                layer.close(index);
+                            } else {
+                                alert(result.message)
+                            }
+                        }
+                    })
+                }
+            });
+        }
+
+    });
+
+</script>
+
+<script type="text/html" id="script-edit-layer">
+    <form id="script-edit-form" style="width: 80%" class="layui-form" lay-filter="script-edit-form">
+        <input type="hidden" name="id">
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required lay-verify="required" placeholder="请输入角色名" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <input type="text" name="remark" required lay-verify="required" placeholder="请输入备注" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+    </form>
+</script>
+
+<script type="text/html" id="menu-tree-layer">
+    <ul id="menu-tree">
+    </ul>
+</script>
+</html>
