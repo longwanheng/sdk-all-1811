@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/data-interface-0321/data-interface-0321.iml" filepath="$PROJECT_DIR$/data-interface-0321/data-interface-0321.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-dubbo-test/my-dubbo-test.iml" filepath="$PROJECT_DIR$/my-dubbo-test/my-dubbo-test.iml" />
       <module fileurl="file://$PROJECT_DIR$/sdk-admin-0321/sdk-admin-0321.iml" filepath="$PROJECT_DIR$/sdk-admin-0321/sdk-admin-0321.iml" />
       <module fileurl="file://$PROJECT_DIR$/sdk-all-1811.iml" filepath="$PROJECT_DIR$/sdk-all-1811.iml" />
       <module fileurl="file://$PROJECT_DIR$/sdk-common-0320/sdk-common-0320.iml" filepath="$PROJECT_DIR$/sdk-common-0320/sdk-common-0320.iml" />

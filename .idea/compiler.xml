@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="data-interface-0321" />
+        <module name="my-dubbo-test" />
         <module name="sdk-admin-0321" />
         <module name="sdk-common-0320" />
         <module name="sdk-dao-0320" />
@@ -18,6 +19,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="data-interface-0321" target="1.8" />
+      <module name="my-dubbo-test" target="1.8" />
       <module name="sdk-admin-0321" target="1.8" />
       <module name="sdk-all-1811" target="1.8" />
       <module name="sdk-common-0320" target="1.8" />

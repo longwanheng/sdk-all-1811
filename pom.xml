@@ -19,6 +19,7 @@
         <module>sdk-service-0320</module>
         <module>sdk-web-0320</module>
         <module>data-interface-0321</module>
+        <module>my-dubbo-test</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
